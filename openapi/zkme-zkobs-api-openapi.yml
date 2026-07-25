@@ -1,0 +1,81 @@
+openapi: 3.0.3
+info:
+  title: zkMe Protocol Auth zkOBS API
+  version: '1.0'
+  x-apievangelist-generated: '2026-07-21'
+  x-apievangelist-method: generated
+  x-apievangelist-source: https://docs.zk.me/hub/start/onboarding/integration/api
+  description: 'zkMe is a decentralized identity network providing privacy-preserving compliance for Web3. The Open API lets integrators query the outcome of zero-knowledge verifications completed by their users through the zkMe widgets: zkKYC (customer identity / sanction / age / citizenship / location / uniqueness proofs), zkOBS (open-banking proof of accredited investor / proof of address), zkKYB (business + UBO verification) and KYT (on-chain transaction / wallet-address risk screening). All endpoints are POST and are authenticated with an AppID (mchNo) + apiKey pair issued from the zkMe dashboard; the zkKYB endpoint additionally uses a short-lived accessToken. This spec is a faithful transcription of the published REST documentation, not an official machine-readable spec published by zkMe.'
+  contact:
+    name: zkMe Integration
+    email: contact@zk.me
+    url: https://docs.zk.me
+  license:
+    name: Documentation - zkMe
+    url: https://docs.zk.me
+servers:
+- url: https://agw.zk.me
+  description: zkMe API gateway (zkKYC, zkOBS, zkKYB, KYT)
+- url: https://nest-api.zk.me
+  description: zkMe access-token service (SDK integration)
+tags:
+- name: zkOBS
+  description: Open banking / accredited-investor (proof of accreditation)
+paths:
+  /zkseradmin/openapi/queryKycInfoByAddressForPoa:
+    post:
+      operationId: queryKycInfoByAddressForPoa
+      tags:
+      - zkOBS
+      summary: Get a user's proof-of-accredited-investor (zkOBS) result
+      description: Returns the proof-of-accredited-investor status (6 stages from Verification Started to PoAI Passed/Failed) for an account. Currently supports Polygon (137) and Base (8453).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ApiKeyAuth'
+              - type: object
+                required:
+                - programNo
+                - account
+                - chainId
+                properties:
+                  programNo:
+                    type: string
+                  account:
+                    type: string
+                  chainId:
+                    type: string
+                    description: Polygon (137) or Base (8453)
+      responses:
+        '200':
+          description: zkOBS accreditation overview
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  poaiCompletedTimeUnix:
+                    type: string
+                  poaiStatus:
+                    type: string
+                  ssiAddress:
+                    type: string
+                  zkmeId:
+                    type: string
+components:
+  schemas:
+    ApiKeyAuth:
+      type: object
+      required:
+      - mchNo
+      - apiKey
+      properties:
+        mchNo:
+          type: string
+          description: AppID from the zkMe dashboard
+        apiKey:
+          type: string
+          description: API key from the zkMe dashboard

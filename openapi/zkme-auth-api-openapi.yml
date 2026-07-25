@@ -1,0 +1,79 @@
+openapi: 3.0.3
+info:
+  title: zkMe Protocol Auth API
+  version: '1.0'
+  x-apievangelist-generated: '2026-07-21'
+  x-apievangelist-method: generated
+  x-apievangelist-source: https://docs.zk.me/hub/start/onboarding/integration/api
+  description: 'zkMe is a decentralized identity network providing privacy-preserving compliance for Web3. The Open API lets integrators query the outcome of zero-knowledge verifications completed by their users through the zkMe widgets: zkKYC (customer identity / sanction / age / citizenship / location / uniqueness proofs), zkOBS (open-banking proof of accredited investor / proof of address), zkKYB (business + UBO verification) and KYT (on-chain transaction / wallet-address risk screening). All endpoints are POST and are authenticated with an AppID (mchNo) + apiKey pair issued from the zkMe dashboard; the zkKYB endpoint additionally uses a short-lived accessToken. This spec is a faithful transcription of the published REST documentation, not an official machine-readable spec published by zkMe.'
+  contact:
+    name: zkMe Integration
+    email: contact@zk.me
+    url: https://docs.zk.me
+  license:
+    name: Documentation - zkMe
+    url: https://docs.zk.me
+servers:
+- url: https://agw.zk.me
+  description: zkMe API gateway (zkKYC, zkOBS, zkKYB, KYT)
+- url: https://nest-api.zk.me
+  description: zkMe access-token service (SDK integration)
+tags:
+- name: Auth
+  description: Access-token issuance for SDK integration
+paths:
+  /api/token/get:
+    post:
+      operationId: getAccessToken
+      tags:
+      - Auth
+      summary: Issue an SDK access token
+      description: Backend-to-backend call that returns a short-lived access token used to initialize the zkMe widget on the client. Called on the nest-api host.
+      servers:
+      - url: https://nest-api.zk.me
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - apiKey
+              - appId
+              - apiModePermission
+              - lv
+              properties:
+                apiKey:
+                  type: string
+                  description: API key from the zkMe dashboard
+                appId:
+                  type: string
+                  description: Application ID (mchNo) from the zkMe dashboard
+                apiModePermission:
+                  type: integer
+                  description: API mode permission flag
+                lv:
+                  type: string
+                  description: Verification level, e.g. zkKYC
+      responses:
+        '200':
+          description: Access token issued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+components:
+  schemas:
+    Envelope:
+      type: object
+      description: Standard zkMe response envelope
+      properties:
+        code:
+          type: integer
+          description: Business status code; 80000000 indicates success on zkKYC/zkKYB, 200 on KYT
+        msg:
+          type: string
+        timestamp:
+          type: integer
+        data:
+          type: object

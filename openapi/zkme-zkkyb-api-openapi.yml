@@ -1,0 +1,87 @@
+openapi: 3.0.3
+info:
+  title: zkMe Protocol Auth zkKYB API
+  version: '1.0'
+  x-apievangelist-generated: '2026-07-21'
+  x-apievangelist-method: generated
+  x-apievangelist-source: https://docs.zk.me/hub/start/onboarding/integration/api
+  description: 'zkMe is a decentralized identity network providing privacy-preserving compliance for Web3. The Open API lets integrators query the outcome of zero-knowledge verifications completed by their users through the zkMe widgets: zkKYC (customer identity / sanction / age / citizenship / location / uniqueness proofs), zkOBS (open-banking proof of accredited investor / proof of address), zkKYB (business + UBO verification) and KYT (on-chain transaction / wallet-address risk screening). All endpoints are POST and are authenticated with an AppID (mchNo) + apiKey pair issued from the zkMe dashboard; the zkKYB endpoint additionally uses a short-lived accessToken. This spec is a faithful transcription of the published REST documentation, not an official machine-readable spec published by zkMe.'
+  contact:
+    name: zkMe Integration
+    email: contact@zk.me
+    url: https://docs.zk.me
+  license:
+    name: Documentation - zkMe
+    url: https://docs.zk.me
+servers:
+- url: https://agw.zk.me
+  description: zkMe API gateway (zkKYC, zkOBS, zkKYB, KYT)
+- url: https://nest-api.zk.me
+  description: zkMe access-token service (SDK integration)
+tags:
+- name: zkKYB
+  description: Business entity and UBO verification status
+paths:
+  /kybpopup/api/kyb/getBusinessStatus:
+    post:
+      operationId: getBusinessStatus
+      tags:
+      - zkKYB
+      summary: Get a business entity's zkKYB verification status
+      description: Returns the zkKYB verification stage (1 Started .. 6 Failed) for a business referenced by your externalID. Uses the short-lived accessToken obtained during SDK integration (valid 30 minutes).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - mchNo
+              - accessToken
+              - programNo
+              - externalID
+              properties:
+                mchNo:
+                  type: string
+                  description: AppID from the dashboard
+                accessToken:
+                  type: string
+                  description: Access token from SDK integration, valid 30 minutes
+                programNo:
+                  type: string
+                externalID:
+                  type: string
+                  description: Your unique identifier for the KYB entity
+      responses:
+        '200':
+          description: Business verification status
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Envelope'
+                - type: object
+                  properties:
+                    data:
+                      type: object
+                      properties:
+                        statusCode:
+                          type: integer
+                          description: 1 Started, 2 Submitted, 3 Under Review, 4 Resubmission Required, 5 Passed, 6 Failed
+                        statusDesc:
+                          type: string
+components:
+  schemas:
+    Envelope:
+      type: object
+      description: Standard zkMe response envelope
+      properties:
+        code:
+          type: integer
+          description: Business status code; 80000000 indicates success on zkKYC/zkKYB, 200 on KYT
+        msg:
+          type: string
+        timestamp:
+          type: integer
+        data:
+          type: object

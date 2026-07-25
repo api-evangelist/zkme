@@ -1,0 +1,316 @@
+openapi: 3.0.3
+info:
+  title: zkMe Protocol Auth KYT API
+  version: '1.0'
+  x-apievangelist-generated: '2026-07-21'
+  x-apievangelist-method: generated
+  x-apievangelist-source: https://docs.zk.me/hub/start/onboarding/integration/api
+  description: 'zkMe is a decentralized identity network providing privacy-preserving compliance for Web3. The Open API lets integrators query the outcome of zero-knowledge verifications completed by their users through the zkMe widgets: zkKYC (customer identity / sanction / age / citizenship / location / uniqueness proofs), zkOBS (open-banking proof of accredited investor / proof of address), zkKYB (business + UBO verification) and KYT (on-chain transaction / wallet-address risk screening). All endpoints are POST and are authenticated with an AppID (mchNo) + apiKey pair issued from the zkMe dashboard; the zkKYB endpoint additionally uses a short-lived accessToken. This spec is a faithful transcription of the published REST documentation, not an official machine-readable spec published by zkMe.'
+  contact:
+    name: zkMe Integration
+    email: contact@zk.me
+    url: https://docs.zk.me
+  license:
+    name: Documentation - zkMe
+    url: https://docs.zk.me
+servers:
+- url: https://agw.zk.me
+  description: zkMe API gateway (zkKYC, zkOBS, zkKYB, KYT)
+- url: https://nest-api.zk.me
+  description: zkMe access-token service (SDK integration)
+tags:
+- name: KYT
+  description: Know-Your-Transaction wallet-address and transaction risk screening
+paths:
+  /zkseradmin/openapi/kyt/status:
+    post:
+      operationId: getKytStatus
+      tags:
+      - KYT
+      summary: Get KYT API status and supported coins
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApiKeyAuth'
+      responses:
+        '200':
+          description: KYT support status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  support_api:
+                    type: boolean
+                  support_coin:
+                    type: array
+                    items:
+                      type: string
+  /zkseradmin/openapi/kyt/address/labels:
+    post:
+      operationId: getAddressLabels
+      tags:
+      - KYT
+      summary: Get labels for a wallet address
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KytAddressRequest'
+      responses:
+        '200':
+          description: Address labels
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  label_list:
+                    type: array
+                    items:
+                      type: string
+                  label_type:
+                    type: string
+  /zkseradmin/openapi/kyt/v1/address/actions:
+    post:
+      operationId: getAddressActions
+      tags:
+      - KYT
+      summary: Get received / spent transaction actions for an address
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KytAddressRequest'
+      responses:
+        '200':
+          description: Address actions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  received_txs:
+                    type: array
+                    items:
+                      type: object
+                  spent_txs:
+                    type: array
+                    items:
+                      type: object
+  /zkseradmin/openapi/kyt/address/counterparty:
+    post:
+      operationId: getAddressCounterparty
+      tags:
+      - KYT
+      summary: Get counterparty breakdown for an address
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KytAddressRequest'
+      responses:
+        '200':
+          description: Address counterparties
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  amount:
+                    type: number
+                  name:
+                    type: string
+                  percent:
+                    type: number
+  /zkseradmin/openapi/kyt/address/overview:
+    post:
+      operationId: getAddressOverview
+      tags:
+      - KYT
+      summary: Get an activity overview for an address
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KytAddressRequest'
+      responses:
+        '200':
+          description: Address overview
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  balance:
+                    type: number
+                  txs_count:
+                    type: integer
+                  first_seen:
+                    type: integer
+                  last_seen:
+                    type: integer
+                  total_received:
+                    type: number
+                  total_spent:
+                    type: number
+                  received_txs_count:
+                    type: integer
+                  spent_txs_count:
+                    type: integer
+  /zkseradmin/openapi/kyt/v1/address/profile:
+    post:
+      operationId: getAddressProfile
+      tags:
+      - KYT
+      summary: Get a risk profile for an address
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KytAddressRequest'
+      responses:
+        '200':
+          description: Address profile
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  first_address:
+                    type: string
+                  use_platform:
+                    type: array
+                    items:
+                      type: string
+                  malicious_event:
+                    type: array
+                    items:
+                      type: object
+                  relation_info:
+                    type: object
+  /zkseradmin/openapi/kyt/risk/score:
+    post:
+      operationId: getRiskScore
+      tags:
+      - KYT
+      summary: Get a risk score for an address or transaction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/KytAddressRequest'
+              - type: object
+                properties:
+                  txid:
+                    type: string
+                    description: Optional transaction id
+      responses:
+        '200':
+          description: Risk score
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  score:
+                    type: number
+                  hacking_event:
+                    type: array
+                    items:
+                      type: object
+                  detail_list:
+                    type: array
+                    items:
+                      type: object
+                  risk_level:
+                    type: string
+                  risk_detail:
+                    type: string
+  /zkseradmin/openapi/kyt/transactions/investigation:
+    post:
+      operationId: getTransactionsInvestigation
+      tags:
+      - KYT
+      summary: Investigate transactions for an address in a time window
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/KytAddressRequest'
+              - type: object
+                required:
+                - start_timestamp
+                - end_timestamp
+                - type
+                - page
+                properties:
+                  start_timestamp:
+                    type: integer
+                  end_timestamp:
+                    type: integer
+                  type:
+                    type: string
+                  page:
+                    type: integer
+      responses:
+        '200':
+          description: Transaction investigation page
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  in:
+                    type: array
+                    items:
+                      type: object
+                  out:
+                    type: array
+                    items:
+                      type: object
+                  page:
+                    type: integer
+                  total_pages:
+                    type: integer
+                  transactions_on_page:
+                    type: integer
+components:
+  schemas:
+    KytAddressRequest:
+      allOf:
+      - $ref: '#/components/schemas/ApiKeyAuth'
+      - type: object
+        required:
+        - coin
+        - address
+        properties:
+          coin:
+            type: string
+            description: Coin / chain symbol
+          address:
+            type: string
+            description: Wallet address to screen
+    ApiKeyAuth:
+      type: object
+      required:
+      - mchNo
+      - apiKey
+      properties:
+        mchNo:
+          type: string
+          description: AppID from the zkMe dashboard
+        apiKey:
+          type: string
+          description: API key from the zkMe dashboard

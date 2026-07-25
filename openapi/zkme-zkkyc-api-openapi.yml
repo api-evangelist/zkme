@@ -1,0 +1,202 @@
+openapi: 3.0.3
+info:
+  title: zkMe Protocol Auth zkKYC API
+  version: '1.0'
+  x-apievangelist-generated: '2026-07-21'
+  x-apievangelist-method: generated
+  x-apievangelist-source: https://docs.zk.me/hub/start/onboarding/integration/api
+  description: 'zkMe is a decentralized identity network providing privacy-preserving compliance for Web3. The Open API lets integrators query the outcome of zero-knowledge verifications completed by their users through the zkMe widgets: zkKYC (customer identity / sanction / age / citizenship / location / uniqueness proofs), zkOBS (open-banking proof of accredited investor / proof of address), zkKYB (business + UBO verification) and KYT (on-chain transaction / wallet-address risk screening). All endpoints are POST and are authenticated with an AppID (mchNo) + apiKey pair issued from the zkMe dashboard; the zkKYB endpoint additionally uses a short-lived accessToken. This spec is a faithful transcription of the published REST documentation, not an official machine-readable spec published by zkMe.'
+  contact:
+    name: zkMe Integration
+    email: contact@zk.me
+    url: https://docs.zk.me
+  license:
+    name: Documentation - zkMe
+    url: https://docs.zk.me
+servers:
+- url: https://agw.zk.me
+  description: zkMe API gateway (zkKYC, zkOBS, zkKYB, KYT)
+- url: https://nest-api.zk.me
+  description: zkMe access-token service (SDK integration)
+tags:
+- name: zkKYC
+  description: Customer identity verification results and proofs
+paths:
+  /zkseradmin/openapi/kyc/getUsersList:
+    post:
+      operationId: getUsersList
+      tags:
+      - zkKYC
+      summary: List users who have interacted with a program
+      description: Paginated list (50 users per page) of the users that have engaged with a given program, including their zkMe id, account, status and SSI wallet.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ApiKeyAuth'
+              - type: object
+                required:
+                - programNo
+                - page
+                properties:
+                  programNo:
+                    type: string
+                    description: Program number from the SDK integration
+                  page:
+                    type: integer
+                    description: Page number, 50 users per page
+      responses:
+        '200':
+          description: User list page
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Envelope'
+                - type: object
+                  properties:
+                    data:
+                      type: object
+                      properties:
+                        total:
+                          type: integer
+                        totalPage:
+                          type: integer
+                        users:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/KycUser'
+  /zkseradmin/openapi/queryKycInfoByAddress:
+    post:
+      operationId: queryKycInfoByAddress
+      tags:
+      - zkKYC
+      summary: Get a user's zkKYC result overview
+      description: Returns the zkKYC status and the boolean verifier values (sanction, age, citizenship, location, unique) for a given account on a given chain.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ApiKeyAuth'
+              - type: object
+                required:
+                - programNo
+                - account
+                - chainId
+                properties:
+                  programNo:
+                    type: string
+                  account:
+                    type: string
+                    description: Wallet address, email, or identifier
+                  chainId:
+                    type: string
+                    description: Blockchain id, e.g. "1" for Ethereum, "solana"
+      responses:
+        '200':
+          description: zkKYC overview
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KycInfo'
+  /zkseradmin/openapi/queryPoAInfoByAddress:
+    post:
+      operationId: queryPoAInfoByAddress
+      tags:
+      - zkKYC
+      summary: Get a user's proof-of-address result overview
+      description: Returns the proof-of-address (countryRegion) verification result for an account.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ApiKeyAuth'
+              - type: object
+                required:
+                - programNo
+                - account
+                properties:
+                  programNo:
+                    type: string
+                  account:
+                    type: string
+      responses:
+        '200':
+          description: Proof-of-address overview
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+components:
+  schemas:
+    KycUser:
+      type: object
+      properties:
+        zkmeId:
+          type: string
+        zkmeAccount:
+          type: string
+        status:
+          type: string
+        ssiWallet:
+          type: string
+        completedTimeUnix:
+          type: integer
+        clientUserIdentifier:
+          type: string
+          description: Empty until status reaches "KYC Passed"
+    ApiKeyAuth:
+      type: object
+      required:
+      - mchNo
+      - apiKey
+      properties:
+        mchNo:
+          type: string
+          description: AppID from the zkMe dashboard
+        apiKey:
+          type: string
+          description: API key from the zkMe dashboard
+    KycInfo:
+      type: object
+      properties:
+        zkme_id:
+          type: string
+        kycStatus:
+          type: string
+        kycCompleteTimeUnix:
+          type: integer
+        ssiAddress:
+          type: string
+        verifierValues:
+          type: object
+          properties:
+            sanction:
+              type: boolean
+            age:
+              type: boolean
+            citizenship:
+              type: boolean
+            location:
+              type: boolean
+            unique:
+              type: boolean
+    Envelope:
+      type: object
+      description: Standard zkMe response envelope
+      properties:
+        code:
+          type: integer
+          description: Business status code; 80000000 indicates success on zkKYC/zkKYB, 200 on KYT
+        msg:
+          type: string
+        timestamp:
+          type: integer
+        data:
+          type: object
