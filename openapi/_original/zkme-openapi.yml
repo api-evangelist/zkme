@@ -1,0 +1,519 @@
+openapi: 3.0.3
+info:
+  title: zkMe Protocol API
+  version: '1.0'
+  x-apievangelist-generated: '2026-07-21'
+  x-apievangelist-method: generated
+  x-apievangelist-source: https://docs.zk.me/hub/start/onboarding/integration/api
+  description: >-
+    zkMe is a decentralized identity network providing privacy-preserving
+    compliance for Web3. The Open API lets integrators query the outcome of
+    zero-knowledge verifications completed by their users through the zkMe
+    widgets: zkKYC (customer identity / sanction / age / citizenship / location
+    / uniqueness proofs), zkOBS (open-banking proof of accredited investor /
+    proof of address), zkKYB (business + UBO verification) and KYT (on-chain
+    transaction / wallet-address risk screening). All endpoints are POST and are
+    authenticated with an AppID (mchNo) + apiKey pair issued from the zkMe
+    dashboard; the zkKYB endpoint additionally uses a short-lived accessToken.
+    This spec is a faithful transcription of the published REST documentation,
+    not an official machine-readable spec published by zkMe.
+  contact:
+    name: zkMe Integration
+    email: contact@zk.me
+    url: https://docs.zk.me
+  license:
+    name: Documentation - zkMe
+    url: https://docs.zk.me
+servers:
+  - url: https://agw.zk.me
+    description: zkMe API gateway (zkKYC, zkOBS, zkKYB, KYT)
+  - url: https://nest-api.zk.me
+    description: zkMe access-token service (SDK integration)
+tags:
+  - name: zkKYC
+    description: Customer identity verification results and proofs
+  - name: zkOBS
+    description: Open banking / accredited-investor (proof of accreditation)
+  - name: zkKYB
+    description: Business entity and UBO verification status
+  - name: KYT
+    description: Know-Your-Transaction wallet-address and transaction risk screening
+  - name: Auth
+    description: Access-token issuance for SDK integration
+paths:
+  /api/token/get:
+    post:
+      operationId: getAccessToken
+      tags: [Auth]
+      summary: Issue an SDK access token
+      description: >-
+        Backend-to-backend call that returns a short-lived access token used to
+        initialize the zkMe widget on the client. Called on the nest-api host.
+      servers:
+        - url: https://nest-api.zk.me
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [apiKey, appId, apiModePermission, lv]
+              properties:
+                apiKey:
+                  type: string
+                  description: API key from the zkMe dashboard
+                appId:
+                  type: string
+                  description: Application ID (mchNo) from the zkMe dashboard
+                apiModePermission:
+                  type: integer
+                  description: API mode permission flag
+                lv:
+                  type: string
+                  description: Verification level, e.g. zkKYC
+      responses:
+        '200':
+          description: Access token issued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+  /zkseradmin/openapi/kyc/getUsersList:
+    post:
+      operationId: getUsersList
+      tags: [zkKYC]
+      summary: List users who have interacted with a program
+      description: >-
+        Paginated list (50 users per page) of the users that have engaged with a
+        given program, including their zkMe id, account, status and SSI wallet.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/ApiKeyAuth'
+                - type: object
+                  required: [programNo, page]
+                  properties:
+                    programNo:
+                      type: string
+                      description: Program number from the SDK integration
+                    page:
+                      type: integer
+                      description: Page number, 50 users per page
+      responses:
+        '200':
+          description: User list page
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Envelope'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          total: { type: integer }
+                          totalPage: { type: integer }
+                          users:
+                            type: array
+                            items: { $ref: '#/components/schemas/KycUser' }
+  /zkseradmin/openapi/queryKycInfoByAddress:
+    post:
+      operationId: queryKycInfoByAddress
+      tags: [zkKYC]
+      summary: Get a user's zkKYC result overview
+      description: >-
+        Returns the zkKYC status and the boolean verifier values (sanction, age,
+        citizenship, location, unique) for a given account on a given chain.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/ApiKeyAuth'
+                - type: object
+                  required: [programNo, account, chainId]
+                  properties:
+                    programNo: { type: string }
+                    account:
+                      type: string
+                      description: Wallet address, email, or identifier
+                    chainId:
+                      type: string
+                      description: Blockchain id, e.g. "1" for Ethereum, "solana"
+      responses:
+        '200':
+          description: zkKYC overview
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KycInfo'
+  /zkseradmin/openapi/queryPoAInfoByAddress:
+    post:
+      operationId: queryPoAInfoByAddress
+      tags: [zkKYC]
+      summary: Get a user's proof-of-address result overview
+      description: Returns the proof-of-address (countryRegion) verification result for an account.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/ApiKeyAuth'
+                - type: object
+                  required: [programNo, account]
+                  properties:
+                    programNo: { type: string }
+                    account: { type: string }
+      responses:
+        '200':
+          description: Proof-of-address overview
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+  /zkseradmin/openapi/queryKycInfoByAddressForPoa:
+    post:
+      operationId: queryKycInfoByAddressForPoa
+      tags: [zkOBS]
+      summary: Get a user's proof-of-accredited-investor (zkOBS) result
+      description: >-
+        Returns the proof-of-accredited-investor status (6 stages from
+        Verification Started to PoAI Passed/Failed) for an account. Currently
+        supports Polygon (137) and Base (8453).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/ApiKeyAuth'
+                - type: object
+                  required: [programNo, account, chainId]
+                  properties:
+                    programNo: { type: string }
+                    account: { type: string }
+                    chainId:
+                      type: string
+                      description: Polygon (137) or Base (8453)
+      responses:
+        '200':
+          description: zkOBS accreditation overview
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  poaiCompletedTimeUnix: { type: string }
+                  poaiStatus: { type: string }
+                  ssiAddress: { type: string }
+                  zkmeId: { type: string }
+  /zkseradmin/openapi/kyt/status:
+    post:
+      operationId: getKytStatus
+      tags: [KYT]
+      summary: Get KYT API status and supported coins
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApiKeyAuth'
+      responses:
+        '200':
+          description: KYT support status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  support_api: { type: boolean }
+                  support_coin: { type: array, items: { type: string } }
+  /zkseradmin/openapi/kyt/address/labels:
+    post:
+      operationId: getAddressLabels
+      tags: [KYT]
+      summary: Get labels for a wallet address
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KytAddressRequest'
+      responses:
+        '200':
+          description: Address labels
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  label_list: { type: array, items: { type: string } }
+                  label_type: { type: string }
+  /zkseradmin/openapi/kyt/v1/address/actions:
+    post:
+      operationId: getAddressActions
+      tags: [KYT]
+      summary: Get received / spent transaction actions for an address
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KytAddressRequest'
+      responses:
+        '200':
+          description: Address actions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  received_txs: { type: array, items: { type: object } }
+                  spent_txs: { type: array, items: { type: object } }
+  /zkseradmin/openapi/kyt/address/counterparty:
+    post:
+      operationId: getAddressCounterparty
+      tags: [KYT]
+      summary: Get counterparty breakdown for an address
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KytAddressRequest'
+      responses:
+        '200':
+          description: Address counterparties
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  amount: { type: number }
+                  name: { type: string }
+                  percent: { type: number }
+  /zkseradmin/openapi/kyt/address/overview:
+    post:
+      operationId: getAddressOverview
+      tags: [KYT]
+      summary: Get an activity overview for an address
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KytAddressRequest'
+      responses:
+        '200':
+          description: Address overview
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  balance: { type: number }
+                  txs_count: { type: integer }
+                  first_seen: { type: integer }
+                  last_seen: { type: integer }
+                  total_received: { type: number }
+                  total_spent: { type: number }
+                  received_txs_count: { type: integer }
+                  spent_txs_count: { type: integer }
+  /zkseradmin/openapi/kyt/v1/address/profile:
+    post:
+      operationId: getAddressProfile
+      tags: [KYT]
+      summary: Get a risk profile for an address
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KytAddressRequest'
+      responses:
+        '200':
+          description: Address profile
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  first_address: { type: string }
+                  use_platform: { type: array, items: { type: string } }
+                  malicious_event: { type: array, items: { type: object } }
+                  relation_info: { type: object }
+  /zkseradmin/openapi/kyt/risk/score:
+    post:
+      operationId: getRiskScore
+      tags: [KYT]
+      summary: Get a risk score for an address or transaction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/KytAddressRequest'
+                - type: object
+                  properties:
+                    txid:
+                      type: string
+                      description: Optional transaction id
+      responses:
+        '200':
+          description: Risk score
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  score: { type: number }
+                  hacking_event: { type: array, items: { type: object } }
+                  detail_list: { type: array, items: { type: object } }
+                  risk_level: { type: string }
+                  risk_detail: { type: string }
+  /zkseradmin/openapi/kyt/transactions/investigation:
+    post:
+      operationId: getTransactionsInvestigation
+      tags: [KYT]
+      summary: Investigate transactions for an address in a time window
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/KytAddressRequest'
+                - type: object
+                  required: [start_timestamp, end_timestamp, type, page]
+                  properties:
+                    start_timestamp: { type: integer }
+                    end_timestamp: { type: integer }
+                    type: { type: string }
+                    page: { type: integer }
+      responses:
+        '200':
+          description: Transaction investigation page
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  in: { type: array, items: { type: object } }
+                  out: { type: array, items: { type: object } }
+                  page: { type: integer }
+                  total_pages: { type: integer }
+                  transactions_on_page: { type: integer }
+  /kybpopup/api/kyb/getBusinessStatus:
+    post:
+      operationId: getBusinessStatus
+      tags: [zkKYB]
+      summary: Get a business entity's zkKYB verification status
+      description: >-
+        Returns the zkKYB verification stage (1 Started .. 6 Failed) for a
+        business referenced by your externalID. Uses the short-lived accessToken
+        obtained during SDK integration (valid 30 minutes).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [mchNo, accessToken, programNo, externalID]
+              properties:
+                mchNo:
+                  type: string
+                  description: AppID from the dashboard
+                accessToken:
+                  type: string
+                  description: Access token from SDK integration, valid 30 minutes
+                programNo: { type: string }
+                externalID:
+                  type: string
+                  description: Your unique identifier for the KYB entity
+      responses:
+        '200':
+          description: Business verification status
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Envelope'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          statusCode:
+                            type: integer
+                            description: 1 Started, 2 Submitted, 3 Under Review, 4 Resubmission Required, 5 Passed, 6 Failed
+                          statusDesc: { type: string }
+components:
+  schemas:
+    ApiKeyAuth:
+      type: object
+      required: [mchNo, apiKey]
+      properties:
+        mchNo:
+          type: string
+          description: AppID from the zkMe dashboard
+        apiKey:
+          type: string
+          description: API key from the zkMe dashboard
+    KytAddressRequest:
+      allOf:
+        - $ref: '#/components/schemas/ApiKeyAuth'
+        - type: object
+          required: [coin, address]
+          properties:
+            coin:
+              type: string
+              description: Coin / chain symbol
+            address:
+              type: string
+              description: Wallet address to screen
+    Envelope:
+      type: object
+      description: Standard zkMe response envelope
+      properties:
+        code:
+          type: integer
+          description: Business status code; 80000000 indicates success on zkKYC/zkKYB, 200 on KYT
+        msg:
+          type: string
+        timestamp:
+          type: integer
+        data:
+          type: object
+    KycUser:
+      type: object
+      properties:
+        zkmeId: { type: string }
+        zkmeAccount: { type: string }
+        status: { type: string }
+        ssiWallet: { type: string }
+        completedTimeUnix: { type: integer }
+        clientUserIdentifier:
+          type: string
+          description: Empty until status reaches "KYC Passed"
+    KycInfo:
+      type: object
+      properties:
+        zkme_id: { type: string }
+        kycStatus: { type: string }
+        kycCompleteTimeUnix: { type: integer }
+        ssiAddress: { type: string }
+        verifierValues:
+          type: object
+          properties:
+            sanction: { type: boolean }
+            age: { type: boolean }
+            citizenship: { type: boolean }
+            location: { type: boolean }
+            unique: { type: boolean }

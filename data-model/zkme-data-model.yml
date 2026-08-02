@@ -1,0 +1,60 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/zkme-openapi.yml
+description: >-
+  Entity-relationship graph derived from the zkMe Open API. The core objects are
+  the Program (a merchant's configured verification flow), the User (identified
+  by zkmeId / SSI wallet), the Business (zkKYB entity), and the on-chain Address
+  screened by KYT.
+entities:
+  - name: Program
+    id: programNo
+    description: A merchant's configured verification program, established at SDK integration.
+    relationships:
+      - has_many: User
+        via: programNo
+      - has_many: Business
+        via: programNo
+  - name: User
+    id: zkmeId
+    also_keyed_by: [ssiWallet, ssiAddress, zkmeAccount, account]
+    description: An individual who completed a zkMe verification; holds credentials as SBTs in an SSI wallet.
+    fields: [status, kycStatus, completedTimeUnix, clientUserIdentifier]
+    relationships:
+      - belongs_to: Program
+        via: programNo
+      - has_one: KycInfo
+        via: account
+      - has_one: PoaiResult
+        via: account
+  - name: KycInfo
+    description: zkKYC result overview with boolean verifier values.
+    fields: [sanction, age, citizenship, location, unique]
+    relationships:
+      - belongs_to: User
+        via: zkme_id
+  - name: PoaiResult
+    description: Proof-of-accredited-investor (zkOBS) result and status.
+    fields: [poaiStatus, poaiCompletedTimeUnix, ssiAddress]
+    relationships:
+      - belongs_to: User
+        via: zkmeId
+  - name: Business
+    id: externalID
+    description: A business entity verified via zkKYB (business + UBO).
+    fields: [statusCode, statusDesc]
+    relationships:
+      - belongs_to: Program
+        via: programNo
+  - name: Address
+    id: address
+    description: An on-chain wallet address screened by KYT.
+    fields: [balance, txs_count, risk_level, score]
+    relationships:
+      - has_many: Transaction
+        via: address
+  - name: Transaction
+    id: txid
+    relationships:
+      - belongs_to: Address
+        via: address

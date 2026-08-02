@@ -1,0 +1,21 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for zkMe Protocol API
+  version: 1.0.0
+extends: openapi/zkme-openapi.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-rating: 3
+      x-apievangelist-notes: >-
+        Faithful transcription of zkMe's published REST docs. Credentials are
+        passed in the request body (not a header), so a standard securityScheme
+        cannot represent the auth; see authentication/zkme-authentication.yml.
+  - target: $.tags[?(@.name=='zkKYC')]
+    update:
+      x-product: zkKYC
+      x-verifier-values: [sanction, age, citizenship, location, unique]
+  - target: $.tags[?(@.name=='KYT')]
+    update:
+      x-product: KYT
+      x-purpose: on-chain wallet and transaction risk screening

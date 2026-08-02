@@ -1,0 +1,40 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/zkme-openapi.yml, https://docs.zk.me
+description: >-
+  Standards posture for zkMe, derived from the OpenAPI surface and the published
+  identity-infrastructure documentation (DID methods, SSI wallets, SBTs,
+  zero-knowledge proofs, zkTLS). zkMe is a decentralized-identity /
+  privacy-preserving-compliance provider; its conformance centers on W3C DID and
+  zero-knowledge credential standards rather than on OAuth/OIDC or payments rails.
+standards:
+  - id: w3c-did
+    conforms: true
+    evidence: Publishes a zkMe DID method spec, DID registry, resolver and registrar (zkMeLabs GitHub org).
+  - id: w3c-verifiable-credentials
+    conforms: true
+    evidence: Reusable zero-knowledge credentials minted as SBTs in an SSI wallet (docs Credential Systems).
+  - id: zktls
+    conforms: true
+    evidence: Publishes zkTLS verifier SDKs (iOS/Android) and zktls specs.
+  - id: zero-knowledge-proofs
+    conforms: true
+    evidence: Circom circuits and snark tooling in the org; ZKP-generated proof stages in zkOBS.
+  - id: oauth2
+    conforms: false
+    evidence: API uses an AppID + API key pair in the request body, not OAuth2.
+  - id: oidc
+    conforms: false
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: Uses a custom code/msg/data/timestamp envelope, not application/problem+json.
+regulatory_frameworks_referenced:
+  frameworks:
+    - KYC / AML compliance (privacy-preserving)
+    - KYB / UBO verification
+    - Accredited-investor verification (zkOBS)
+  note: >-
+    zkMe positions itself as helping integrators meet KYC/AML/KYB obligations
+    via zero-knowledge proofs. No third-party security certification (SOC 2, ISO
+    27001, PCI DSS) was found published in the developer docs, so no Compliance
+    pointer is emitted.

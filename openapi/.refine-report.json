@@ -1,0 +1,22 @@
+{
+  "provider": "zkme",
+  "sources": [
+    "zkme-auth-api-openapi.yml",
+    "zkme-kyt-api-openapi.yml",
+    "zkme-zkkyb-api-openapi.yml",
+    "zkme-zkkyc-api-openapi.yml",
+    "zkme-zkobs-api-openapi.yml"
+  ],
+  "outputs": [
+    "zkme-auth-api-openapi.yml",
+    "zkme-kyt-api-openapi.yml",
+    "zkme-zkkyb-api-openapi.yml",
+    "zkme-zkkyc-api-openapi.yml",
+    "zkme-zkobs-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

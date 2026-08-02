@@ -1,0 +1,39 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.zk.me/hub/start/onboarding/integration/js-sdk
+description: >-
+  zkMe ships its verification flows as embeddable client-side widgets rather
+  than as a hosted redirect only. The widget mounts in the host dapp, drives the
+  user through the zero-knowledge verification, and emits completion events the
+  host listens for.
+families:
+  - name: zkKYC / Anti-Sybil Widget
+    loader: "@zkmelabs/widget"
+    stylesheet: "@zkmelabs/widget/dist/style.css"
+    component: ZkMeWidget
+    docs: https://docs.zk.me/hub/start/onboarding/integration/js-sdk/zkkyc
+    constructor_args: [appId, dappName, chainId, provider, options]
+    options: [lv, programNo]
+    methods:
+      - name: launch
+        description: Display the widget centered on the page.
+      - name: hide
+        description: Conceal the widget.
+      - name: destroy
+        description: Remove listeners and DOM nodes.
+      - name: switchChain
+        description: Sync a chain change into the widget.
+      - name: "on('kycFinished', cb)"
+        description: Listen for verification completion events.
+    provider_interface:
+      - getAccessToken
+      - getUserAccounts
+      - delegateTransaction
+    supported_chains: [EVM, Cosmos, Aptos, TON, Solana]
+  - name: zkKYB Widget
+    loader: "@zkmelabs/kyb-widget"
+    docs: https://docs.zk.me/hub/start/onboarding/integration/js-sdk/zkkyb
+    description: Embeddable business-verification (zkKYB) flow.
+  - name: Mobile SDK
+    docs: https://docs.zk.me/hub/start/onboarding/integration/mobile-sdk
+    description: Native mobile SDK exposing zkOBS and the verification flows in mobile apps.

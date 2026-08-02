@@ -1,0 +1,40 @@
+# zkMe
+
+> zkMe is a decentralized identity network delivering privacy-preserving compliance for Web3. Using zero-knowledge proofs, SSI wallets and soulbound tokens, integrators verify their users (zkKYC, zkOBS), businesses (zkKYB) and screen on-chain activity (KYT) without ever handling raw personal data. Verification runs client-side through embeddable widgets; results are queried through the zkMe Open API.
+
+## APIs
+
+- [zkMe Protocol API (OpenAPI)](https://raw.githubusercontent.com/api-evangelist/zkme/refs/heads/main/openapi/zkme-openapi.yml): zkKYC, zkOBS, zkKYB and KYT result/query endpoints on https://agw.zk.me
+- [API integration docs](https://docs.zk.me/hub/start/onboarding/integration/api): endpoint reference, auth, rate limits
+- [Access-token service](https://nest-api.zk.me/api/token/get): mints the short-lived SDK access token
+
+## Products
+
+- [zkKYC](https://docs.zk.me/hub/start/onboarding/integration/api/verify-zkkyc): customer identity, sanction, age, citizenship, location and uniqueness proofs
+- [zkKYB](https://docs.zk.me/hub/start/onboarding/integration/api/zkkyb): business entity + UBO verification
+- [zkOBS](https://docs.zk.me/hub/start/onboarding/integration/api/verify-zkobs): open-banking proof of accredited investor / proof of address
+- [KYT](https://docs.zk.me/hub/start/onboarding/integration/api/get-kyt): wallet-address and transaction risk screening
+
+## SDKs
+
+- [@zkmelabs/widget](https://www.npmjs.com/package/@zkmelabs/widget): zkKYC and Anti-Sybil verification widget
+- [@zkmelabs/kyb-widget](https://www.npmjs.com/package/@zkmelabs/kyb-widget): zkKYB business-verification widget
+- [Mobile SDK](https://docs.zk.me/hub/start/onboarding/integration/mobile-sdk): native mobile verification
+- [GitHub org](https://github.com/zkMeLabs): DID registry/resolver, zkTLS SDKs, circuits and contracts
+
+## Docs
+
+- [Documentation home](https://docs.zk.me)
+- [Getting started / onboarding](https://docs.zk.me/hub/start/onboarding)
+- [JavaScript SDK](https://docs.zk.me/hub/start/onboarding/integration/js-sdk)
+- [Smart contract integration](https://docs.zk.me/hub/start/onboarding/integration/smart-contract)
+- [Bug bounty](https://docs.zk.me/hub/explore/bounty)
+- [Dashboard](https://dashboard.zk.me)
+
+## Artifacts
+
+- [Authentication](https://raw.githubusercontent.com/api-evangelist/zkme/refs/heads/main/authentication/zkme-authentication.yml)
+- [Conventions](https://raw.githubusercontent.com/api-evangelist/zkme/refs/heads/main/conventions/zkme-conventions.yml)
+- [Error catalog](https://raw.githubusercontent.com/api-evangelist/zkme/refs/heads/main/errors/zkme-problem-types.yml)
+- [Data model](https://raw.githubusercontent.com/api-evangelist/zkme/refs/heads/main/data-model/zkme-data-model.yml)
+- [Packages](https://raw.githubusercontent.com/api-evangelist/zkme/refs/heads/main/packages/zkme-packages.yml)

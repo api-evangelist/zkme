@@ -1,0 +1,44 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/zkme-openapi.yml
+format: custom-envelope
+description: >-
+  zkMe does not use RFC 9457 problem+json. Every response carries a business
+  status in a `code` field inside the standard envelope (code / msg / data /
+  timestamp). Success is signalled by 80000000 on the zkKYC/zkKYB endpoints and
+  by 200 on KYT. Non-success codes are returned with a human-readable `msg`.
+envelope:
+  code: integer
+  msg: string
+  data: object
+  timestamp: integer
+success_codes:
+  - code: 80000000
+    surface: [zkKYC, zkKYB, zkOBS]
+    meaning: Request succeeded.
+  - code: 200
+    surface: [KYT]
+    meaning: Request succeeded.
+status_semantics:
+  kyc_status:
+    field: kycStatus / status
+    note: Reaches "KYC Passed" when verification completes; clientUserIdentifier is empty until then.
+  kyb_status:
+    field: data.statusCode
+    values:
+      1: Verification Started
+      2: Info Submitted
+      3: Under Review
+      4: Resubmission Required
+      5: Verification Passed
+      6: Verification Failed
+  poai_status:
+    field: poaiStatus
+    values: [Verification Started, Data Retrieved, ZKP Generated, SBT Minted, OnChain Minted, PoAI Passed, PoAI Failed]
+problems:
+  - code: non-80000000
+    title: Business error
+    detail: Any zkKYC/zkKYB/zkOBS response whose code is not 80000000 indicates a business-level failure; see msg.
+  - code: non-200
+    title: KYT error
+    detail: Any KYT response whose code is not 200 indicates a failure; see message.

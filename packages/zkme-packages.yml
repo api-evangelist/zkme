@@ -1,0 +1,62 @@
+generated: '2026-07-21'
+method: searched
+source: https://www.npmjs.com/~zkmelabs
+packages:
+  - language: javascript
+    registry: npm
+    name: "@zkmelabs/widget"
+    version: 0.3.6
+    url: https://www.npmjs.com/package/@zkmelabs/widget
+    install: npm install @zkmelabs/widget
+    description: zkMe zkKYC and Anti-Sybil SDK (embeddable verification widget).
+    repository: https://github.com/zkMeLabs/zkme-sdk-js
+    license: MIT
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@zkmelabs/kyb-widget"
+    version: 0.1.3
+    url: https://www.npmjs.com/package/@zkmelabs/kyb-widget
+    install: npm install @zkmelabs/kyb-widget
+    description: zkMe zkKYB (business verification) SDK.
+    repository: https://github.com/zkMeLabs/zkme-sdk-js
+    license: MIT
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@zkmelabs/storage-sdk-js"
+    version: 0.0.3
+    url: https://www.npmjs.com/package/@zkmelabs/storage-sdk-js
+    install: npm install @zkmelabs/storage-sdk-js
+    description: SDK for applications interacting with the zkMe Chain Storage.
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@zkmelabs/verify-abi"
+    version: 0.1.0
+    url: https://www.npmjs.com/package/@zkmelabs/verify-abi
+    install: npm install @zkmelabs/verify-abi
+    description: Exports the Smart Contract ABI for zkMe Verify & Certification contracts.
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@zkmelabs/selvage-sdk"
+    version: 0.1.6
+    url: https://www.npmjs.com/package/@zkmelabs/selvage-sdk
+    install: npm install @zkmelabs/selvage-sdk
+    description: Selvage SDK.
+    official: true
+  - language: swift
+    registry: cocoapods
+    name: zktls-verifier-ios-sdk
+    url: https://github.com/zkMeLabs/zktls-verifier-ios-sdk
+    description: zkMe zkTLS Verifier SDK for iOS (published via the zktls-specs CocoaPods spec repo).
+    repository: https://github.com/zkMeLabs/zktls-verifier-ios-sdk
+    official: true
+  - language: kotlin
+    registry: github
+    name: zktls-verifier-android-sdk
+    url: https://github.com/zkMeLabs/zktls-verifier-android-sdk
+    description: zkMe zkTLS Verifier SDK for Android.
+    repository: https://github.com/zkMeLabs/zktls-verifier-android-sdk
+    official: true

@@ -1,0 +1,34 @@
+generated: '2026-07-21'
+method: searched
+source: live probe of zkMe hosts
+description: >-
+  Probed the /.well-known/ discovery surface across every zkMe host (zk.me,
+  agw.zk.me, nest-api.zk.me, docs.zk.me, dashboard.zk.me). No discovery
+  documents are published — every candidate returns 404. Recorded for
+  auditability; absence is a valid result and no WellKnown pointer is wired.
+hosts:
+- host: https://zk.me
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+- host: https://agw.zk.me
+  documents:
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/security.txt, status: 404}
+- host: https://nest-api.zk.me
+  documents:
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+- host: https://docs.zk.me
+  documents:
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/security.txt, status: 404}
+- host: https://dashboard.zk.me
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}

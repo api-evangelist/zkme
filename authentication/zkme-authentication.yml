@@ -1,0 +1,33 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.zk.me/hub/start/onboarding/integration/api
+docs: https://docs.zk.me/hub/start/onboarding/integration/api
+description: >-
+  The zkMe Open API authenticates every request with an AppID + API key pair
+  issued from the zkMe dashboard. Unusually, the credentials are passed as
+  request-body fields (mchNo = AppID, apiKey = API key) rather than as an
+  Authorization header, so they are not expressible as a standard OpenAPI
+  securityScheme. The zkKYB endpoint and all SDK-initialized flows instead use a
+  short-lived accessToken (valid 30 minutes) minted server-side via
+  POST https://nest-api.zk.me/api/token/get.
+summary:
+  types: [apiKey, bearerToken]
+  api_key_in: [body]
+  credential_pair: [mchNo, apiKey]
+schemes:
+  - name: apiKeyPair
+    type: apiKey
+    in: body
+    fields: [mchNo, apiKey]
+    description: AppID (mchNo) + API key, both from the dashboard, sent in the JSON body.
+    applies_to: [zkKYC, zkOBS, KYT]
+    sources: [openapi/zkme-openapi.yml]
+  - name: accessToken
+    type: bearerToken
+    in: body
+    field: accessToken
+    ttl_seconds: 1800
+    mint_endpoint: https://nest-api.zk.me/api/token/get
+    description: Short-lived token obtained during SDK integration; used by zkKYB and widget flows.
+    applies_to: [zkKYB, widget]
+    sources: [openapi/zkme-openapi.yml]

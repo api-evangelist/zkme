@@ -1,0 +1,44 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.zk.me/hub/start/onboarding/integration/api
+docs: https://docs.zk.me/hub/start/onboarding/integration/api
+description: Cross-cutting request/response semantics for the zkMe Open API.
+authentication:
+  style: api-key-pair-in-body
+  fields: [mchNo, apiKey]
+  token: accessToken (zkKYB / widget, 30-minute TTL)
+  ref: authentication/zkme-authentication.yml
+transport:
+  methods: [POST]
+  content_type: application/json
+  note: Every documented endpoint is POST with a JSON body, including read-only queries.
+error_envelope:
+  shape:
+    code: integer (business status code)
+    msg: string
+    data: object
+    timestamp: integer (ms)
+  success_codes:
+    zkKYC_zkKYB: 80000000
+    KYT: 200
+  ref: errors/zkme-problem-types.yml
+pagination:
+  style: page-number
+  request_param: page
+  page_size: 50
+  response_fields: [total, totalPage]
+  applies_to: [getUsersList, getTransactionsInvestigation]
+idempotency:
+  supported: false
+  note: No idempotency-key header or parameter is documented; result queries are naturally read-only.
+rate_limiting:
+  documented: true
+  limit: 10 calls / second / key (Standard plan)
+  ref: rate-limits/zkme-rate-limits.yml
+versioning:
+  scheme: path-segment (partial)
+  note: Some KYT endpoints carry a /v1/ segment (address/actions, address/profile); the rest are unversioned.
+identifiers:
+  program: programNo (from SDK integration)
+  external: externalID (caller-supplied entity reference for zkKYB)
+  user: zkmeId / ssiAddress

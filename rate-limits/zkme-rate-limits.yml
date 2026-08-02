@@ -1,0 +1,11 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.zk.me/hub/start/onboarding/integration/api
+docs: https://docs.zk.me/hub/start/onboarding/integration/api
+description: Published rate limits for the zkMe Open API.
+rate_limits:
+  - plan: Standard
+    limit_count: 10
+    unit: second
+    scope: key
+    description: 10 calls per second per API key.

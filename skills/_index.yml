@@ -1,0 +1,16 @@
+generated: '2026-07-21'
+method: generated
+source: openapi/zkme-openapi.yml
+skills:
+  - file: zkme-verify-user-kyc.md
+    name: Check a user's zkKYC status
+    api: openapi/zkme-openapi.yml
+    operations: [queryKycInfoByAddress, getUsersList]
+  - file: zkme-screen-address-risk.md
+    name: Screen a wallet address for risk (KYT)
+    api: openapi/zkme-openapi.yml
+    operations: [getKytStatus, getAddressOverview, getRiskScore, getTransactionsInvestigation]
+  - file: zkme-check-business-status.md
+    name: Check a business zkKYB verification status
+    api: openapi/zkme-openapi.yml
+    operations: [getAccessToken, getBusinessStatus]
