@@ -184,6 +184,10 @@ apis:
   - type: Conformance
     url: conformance/zkme-conformance.yml
 common:
+- type: MCPServer
+  url: mcp/zkme-mcp.yml
+- type: Overlay
+  url: overlays/zkme-openapi-overlay.yaml
 - type: AgenticAccess
   url: agentic-access/zkme-agentic-access.yml
 - type: DomainSecurity
