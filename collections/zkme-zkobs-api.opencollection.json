@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "zkMe Protocol Auth zkOBS API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "zkOBS",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a user's proof-of-accredited-investor (zkOBS) result",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://agw.zk.me/zkseradmin/openapi/queryKycInfoByAddressForPoa",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns the proof-of-accredited-investor status (6 stages from Verification Started to PoAI Passed/Failed) for an account. Currently supports Polygon (137) and Base (8453)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,138 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "zkMe Protocol Auth KYT API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "KYT",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get KYT API status and supported coins",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://agw.zk.me/zkseradmin/openapi/kyt/status",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get KYT API status and supported coins"
+        },
+        {
+          "info": {
+            "name": "Get labels for a wallet address",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://agw.zk.me/zkseradmin/openapi/kyt/address/labels",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get labels for a wallet address"
+        },
+        {
+          "info": {
+            "name": "Get received / spent transaction actions for an address",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://agw.zk.me/zkseradmin/openapi/kyt/v1/address/actions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get received / spent transaction actions for an address"
+        },
+        {
+          "info": {
+            "name": "Get counterparty breakdown for an address",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://agw.zk.me/zkseradmin/openapi/kyt/address/counterparty",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get counterparty breakdown for an address"
+        },
+        {
+          "info": {
+            "name": "Get an activity overview for an address",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://agw.zk.me/zkseradmin/openapi/kyt/address/overview",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get an activity overview for an address"
+        },
+        {
+          "info": {
+            "name": "Get a risk profile for an address",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://agw.zk.me/zkseradmin/openapi/kyt/v1/address/profile",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get a risk profile for an address"
+        },
+        {
+          "info": {
+            "name": "Get a risk score for an address or transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://agw.zk.me/zkseradmin/openapi/kyt/risk/score",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get a risk score for an address or transaction"
+        },
+        {
+          "info": {
+            "name": "Investigate transactions for an address in a time window",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://agw.zk.me/zkseradmin/openapi/kyt/transactions/investigation",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Investigate transactions for an address in a time window"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

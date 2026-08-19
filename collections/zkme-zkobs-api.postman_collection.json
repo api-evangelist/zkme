@@ -1,0 +1,127 @@
+{
+  "item": [
+    {
+      "id": "3cb7fed9-fad9-494b-8cf5-b402494754cc",
+      "name": "zkOBS",
+      "description": {
+        "content": "Open banking / accredited-investor (proof of accreditation)",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0412ceb0-ffbd-4798-ad2e-5bdb479f70c6",
+          "name": "Get a user's proof-of-accredited-investor (zkOBS) result",
+          "request": {
+            "name": "Get a user's proof-of-accredited-investor (zkOBS) result",
+            "description": {
+              "content": "Returns the proof-of-accredited-investor status (6 stages from Verification Started to PoAI Passed/Failed) for an account. Currently supports Polygon (137) and Base (8453).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "zkseradmin",
+                "openapi",
+                "queryKycInfoByAddressForPoa"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account\": \"<string>\",\n  \"apiKey\": \"<string>\",\n  \"chainId\": \"<string>\",\n  \"mchNo\": \"<string>\",\n  \"programNo\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6c3475f6-a3d6-492b-ac82-a6da1eff5572",
+              "name": "zkOBS accreditation overview",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "zkseradmin",
+                    "openapi",
+                    "queryKycInfoByAddressForPoa"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account\": \"<string>\",\n  \"apiKey\": \"<string>\",\n  \"chainId\": \"<string>\",\n  \"mchNo\": \"<string>\",\n  \"programNo\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"poaiCompletedTimeUnix\": \"string\",\n  \"poaiStatus\": \"string\",\n  \"ssiAddress\": \"string\",\n  \"zkmeId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://agw.zk.me",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "9784cc41-a609-4e4d-99d1-4d163c9031b8",
+    "name": "zkMe Protocol Auth zkOBS API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "zkMe is a decentralized identity network providing privacy-preserving compliance for Web3. The Open API lets integrators query the outcome of zero-knowledge verifications completed by their users through the zkMe widgets: zkKYC (customer identity / sanction / age / citizenship / location / uniqueness proofs), zkOBS (open-banking proof of accredited investor / proof of address), zkKYB (business + UBO verification) and KYT (on-chain transaction / wallet-address risk screening). All endpoints are POST and are authenticated with an AppID (mchNo) + apiKey pair issued from the zkMe dashboard; the zkKYB endpoint additionally uses a short-lived accessToken. This spec is a faithful transcription of the published REST documentation, not an official machine-readable spec published by zkMe.\n\nContact Support:\n Name: zkMe Integration\n Email: contact@zk.me",
+      "type": "text/plain"
+    }
+  }
+}

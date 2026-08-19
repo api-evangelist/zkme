@@ -1,0 +1,63 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "zkMe Protocol Auth zkKYC API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "zkKYC",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List users who have interacted with a program",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://agw.zk.me/zkseradmin/openapi/kyc/getUsersList",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Paginated list (50 users per page) of the users that have engaged with a given program, including their zkMe id, account, status and SSI wallet."
+        },
+        {
+          "info": {
+            "name": "Get a user's zkKYC result overview",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://agw.zk.me/zkseradmin/openapi/queryKycInfoByAddress",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns the zkKYC status and the boolean verifier values (sanction, age, citizenship, location, unique) for a given account on a given chain."
+        },
+        {
+          "info": {
+            "name": "Get a user's proof-of-address result overview",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://agw.zk.me/zkseradmin/openapi/queryPoAInfoByAddress",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns the proof-of-address (countryRegion) verification result for an account."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

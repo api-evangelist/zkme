@@ -2,42 +2,46 @@ generated: '2026-07-21'
 method: derived
 status: candidate
 source: openapi/zkme-openapi.yml
-description: >-
-  No official hosted/remote zkMe MCP server was found (docs, npm
-  @modelcontextprotocol, MCP registries). This is a candidate tool surface
-  derived one-tool-per-operation from the documented zkMe Open API, suitable for
-  wrapping the read/query endpoints as agent tools.
+description: No official hosted/remote zkMe MCP server was found (docs, npm @modelcontextprotocol, MCP
+  registries). This is a candidate tool surface derived one-tool-per-operation from the documented zkMe
+  Open API, suitable for wrapping the read/query endpoints as agent tools.
 server:
   name: zkme
   transport: http
 tools:
-  - name: get_users_list
-    description: List users who engaged with a program (paginated).
-    source_operation: openapi/zkme-openapi.yml#getUsersList
-  - name: query_kyc_info_by_address
-    description: Get a user's zkKYC result overview and verifier values.
-    source_operation: openapi/zkme-openapi.yml#queryKycInfoByAddress
-  - name: query_poa_info_by_address
-    description: Get a user's proof-of-address result overview.
-    source_operation: openapi/zkme-openapi.yml#queryPoAInfoByAddress
-  - name: query_kyc_info_for_poa
-    description: Get a user's proof-of-accredited-investor (zkOBS) result.
-    source_operation: openapi/zkme-openapi.yml#queryKycInfoByAddressForPoa
-  - name: get_business_status
-    description: Get a business entity's zkKYB verification status.
-    source_operation: openapi/zkme-openapi.yml#getBusinessStatus
-  - name: get_kyt_status
-    description: Get KYT API status and supported coins.
-    source_operation: openapi/zkme-openapi.yml#getKytStatus
-  - name: get_address_labels
-    description: Get labels for a wallet address.
-    source_operation: openapi/zkme-openapi.yml#getAddressLabels
-  - name: get_address_overview
-    description: Get an activity overview for an address.
-    source_operation: openapi/zkme-openapi.yml#getAddressOverview
-  - name: get_risk_score
-    description: Get a risk score for an address or transaction.
-    source_operation: openapi/zkme-openapi.yml#getRiskScore
-  - name: get_transactions_investigation
-    description: Investigate transactions for an address in a time window.
-    source_operation: openapi/zkme-openapi.yml#getTransactionsInvestigation
+- name: get_users_list
+  description: List users who engaged with a program (paginated).
+  source_operation: openapi/zkme-openapi.yml#getUsersList
+- name: query_kyc_info_by_address
+  description: Get a user's zkKYC result overview and verifier values.
+  source_operation: openapi/zkme-openapi.yml#queryKycInfoByAddress
+- name: query_poa_info_by_address
+  description: Get a user's proof-of-address result overview.
+  source_operation: openapi/zkme-openapi.yml#queryPoAInfoByAddress
+- name: query_kyc_info_for_poa
+  description: Get a user's proof-of-accredited-investor (zkOBS) result.
+  source_operation: openapi/zkme-openapi.yml#queryKycInfoByAddressForPoa
+- name: get_business_status
+  description: Get a business entity's zkKYB verification status.
+  source_operation: openapi/zkme-openapi.yml#getBusinessStatus
+- name: get_kyt_status
+  description: Get KYT API status and supported coins.
+  source_operation: openapi/zkme-openapi.yml#getKytStatus
+- name: get_address_labels
+  description: Get labels for a wallet address.
+  source_operation: openapi/zkme-openapi.yml#getAddressLabels
+- name: get_address_overview
+  description: Get an activity overview for an address.
+  source_operation: openapi/zkme-openapi.yml#getAddressOverview
+- name: get_risk_score
+  description: Get a risk score for an address or transaction.
+  source_operation: openapi/zkme-openapi.yml#getRiskScore
+- name: get_transactions_investigation
+  description: Investigate transactions for an address in a time window.
+  source_operation: openapi/zkme-openapi.yml#getTransactionsInvestigation
+deployment:
+  mode: none
+  verified: derived
+  tools: 10
+  checked: '2026-08-12'
+  source: catalog MCP census

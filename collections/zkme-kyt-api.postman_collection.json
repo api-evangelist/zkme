@@ -1,0 +1,802 @@
+{
+  "item": [
+    {
+      "id": "1ac743d0-87dc-404b-89e1-7041f6b818b9",
+      "name": "KYT",
+      "description": {
+        "content": "Know-Your-Transaction wallet-address and transaction risk screening",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "705b8993-239e-4c51-a110-e7472937d696",
+          "name": "Get KYT API status and supported coins",
+          "request": {
+            "name": "Get KYT API status and supported coins",
+            "description": {},
+            "url": {
+              "path": [
+                "zkseradmin",
+                "openapi",
+                "kyt",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mchNo\": \"<string>\",\n  \"apiKey\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c27c51b9-9388-4c89-9e76-5b9cacb75581",
+              "name": "KYT support status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "zkseradmin",
+                    "openapi",
+                    "kyt",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mchNo\": \"<string>\",\n  \"apiKey\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"support_api\": false,\n  \"support_coin\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "254d34d6-6f4a-4b15-97ec-fadf8d10dc31",
+          "name": "Get labels for a wallet address",
+          "request": {
+            "name": "Get labels for a wallet address",
+            "description": {},
+            "url": {
+              "path": [
+                "zkseradmin",
+                "openapi",
+                "kyt",
+                "address",
+                "labels"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"address\": \"<string>\",\n  \"apiKey\": \"<string>\",\n  \"coin\": \"<string>\",\n  \"mchNo\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bc65debb-53b4-4ecf-a44e-1589d88cd10d",
+              "name": "Address labels",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "zkseradmin",
+                    "openapi",
+                    "kyt",
+                    "address",
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address\": \"<string>\",\n  \"apiKey\": \"<string>\",\n  \"coin\": \"<string>\",\n  \"mchNo\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"label_list\": [\n    \"string\",\n    \"string\"\n  ],\n  \"label_type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c9a449b8-8ecc-4044-be6d-6f3503dab599",
+          "name": "Get received / spent transaction actions for an address",
+          "request": {
+            "name": "Get received / spent transaction actions for an address",
+            "description": {},
+            "url": {
+              "path": [
+                "zkseradmin",
+                "openapi",
+                "kyt",
+                "v1",
+                "address",
+                "actions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"address\": \"<string>\",\n  \"apiKey\": \"<string>\",\n  \"coin\": \"<string>\",\n  \"mchNo\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "780c4cb9-88a6-4071-8d8f-f3cd2272bcd2",
+              "name": "Address actions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "zkseradmin",
+                    "openapi",
+                    "kyt",
+                    "v1",
+                    "address",
+                    "actions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address\": \"<string>\",\n  \"apiKey\": \"<string>\",\n  \"coin\": \"<string>\",\n  \"mchNo\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "68e60d29-8b08-4b05-a437-df2ad734ff56",
+          "name": "Get counterparty breakdown for an address",
+          "request": {
+            "name": "Get counterparty breakdown for an address",
+            "description": {},
+            "url": {
+              "path": [
+                "zkseradmin",
+                "openapi",
+                "kyt",
+                "address",
+                "counterparty"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"address\": \"<string>\",\n  \"apiKey\": \"<string>\",\n  \"coin\": \"<string>\",\n  \"mchNo\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d646f83a-3366-4d3c-983a-441897b7c412",
+              "name": "Address counterparties",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "zkseradmin",
+                    "openapi",
+                    "kyt",
+                    "address",
+                    "counterparty"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address\": \"<string>\",\n  \"apiKey\": \"<string>\",\n  \"coin\": \"<string>\",\n  \"mchNo\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"amount\": 6457.924280337433,\n  \"name\": \"string\",\n  \"percent\": 2476.117247697921\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "723375f9-8688-4ae6-9626-e7906cbdb252",
+          "name": "Get an activity overview for an address",
+          "request": {
+            "name": "Get an activity overview for an address",
+            "description": {},
+            "url": {
+              "path": [
+                "zkseradmin",
+                "openapi",
+                "kyt",
+                "address",
+                "overview"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"address\": \"<string>\",\n  \"apiKey\": \"<string>\",\n  \"coin\": \"<string>\",\n  \"mchNo\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8fd35945-fda7-4831-b484-bf66d11ea961",
+              "name": "Address overview",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "zkseradmin",
+                    "openapi",
+                    "kyt",
+                    "address",
+                    "overview"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address\": \"<string>\",\n  \"apiKey\": \"<string>\",\n  \"coin\": \"<string>\",\n  \"mchNo\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"balance\": 2095.661712511989,\n  \"txs_count\": 9518,\n  \"first_seen\": 6233,\n  \"last_seen\": 101,\n  \"total_received\": 9612.88636356045,\n  \"total_spent\": 802.4587460065258,\n  \"received_txs_count\": 4633,\n  \"spent_txs_count\": 3264\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1456d038-fe6f-4f6d-8261-db0d04dd6371",
+          "name": "Get a risk profile for an address",
+          "request": {
+            "name": "Get a risk profile for an address",
+            "description": {},
+            "url": {
+              "path": [
+                "zkseradmin",
+                "openapi",
+                "kyt",
+                "v1",
+                "address",
+                "profile"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"address\": \"<string>\",\n  \"apiKey\": \"<string>\",\n  \"coin\": \"<string>\",\n  \"mchNo\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "126d67fb-49d0-47bf-816f-41aff16d130c",
+              "name": "Address profile",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "zkseradmin",
+                    "openapi",
+                    "kyt",
+                    "v1",
+                    "address",
+                    "profile"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address\": \"<string>\",\n  \"apiKey\": \"<string>\",\n  \"coin\": \"<string>\",\n  \"mchNo\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"first_address\": \"string\",\n  \"use_platform\": [\n    \"string\",\n    \"string\"\n  ],\n  \"relation_info\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4d9a5c11-7e23-485e-9bf2-d5dacfa3cdb1",
+          "name": "Get a risk score for an address or transaction",
+          "request": {
+            "name": "Get a risk score for an address or transaction",
+            "description": {},
+            "url": {
+              "path": [
+                "zkseradmin",
+                "openapi",
+                "kyt",
+                "risk",
+                "score"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"address\": \"<string>\",\n  \"apiKey\": \"<string>\",\n  \"coin\": \"<string>\",\n  \"mchNo\": \"<string>\",\n  \"txid\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "158cb866-c498-4175-a66f-803462179602",
+              "name": "Risk score",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "zkseradmin",
+                    "openapi",
+                    "kyt",
+                    "risk",
+                    "score"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address\": \"<string>\",\n  \"apiKey\": \"<string>\",\n  \"coin\": \"<string>\",\n  \"mchNo\": \"<string>\",\n  \"txid\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"score\": 7675.867992100161,\n  \"risk_level\": \"string\",\n  \"risk_detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "86261350-2914-47c3-941d-f4e0f0bd12aa",
+          "name": "Investigate transactions for an address in a time window",
+          "request": {
+            "name": "Investigate transactions for an address in a time window",
+            "description": {},
+            "url": {
+              "path": [
+                "zkseradmin",
+                "openapi",
+                "kyt",
+                "transactions",
+                "investigation"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"address\": \"<string>\",\n  \"apiKey\": \"<string>\",\n  \"coin\": \"<string>\",\n  \"end_timestamp\": \"<integer>\",\n  \"mchNo\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"start_timestamp\": \"<integer>\",\n  \"type\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d84a87d6-eeed-4add-a7a7-224cf047d800",
+              "name": "Transaction investigation page",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "zkseradmin",
+                    "openapi",
+                    "kyt",
+                    "transactions",
+                    "investigation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address\": \"<string>\",\n  \"apiKey\": \"<string>\",\n  \"coin\": \"<string>\",\n  \"end_timestamp\": \"<integer>\",\n  \"mchNo\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"start_timestamp\": \"<integer>\",\n  \"type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"page\": 850,\n  \"total_pages\": 1298,\n  \"transactions_on_page\": 851\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://agw.zk.me",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e09f2733-00af-4a15-a290-601d42fd56c0",
+    "name": "zkMe Protocol Auth KYT API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "zkMe is a decentralized identity network providing privacy-preserving compliance for Web3. The Open API lets integrators query the outcome of zero-knowledge verifications completed by their users through the zkMe widgets: zkKYC (customer identity / sanction / age / citizenship / location / uniqueness proofs), zkOBS (open-banking proof of accredited investor / proof of address), zkKYB (business + UBO verification) and KYT (on-chain transaction / wallet-address risk screening). All endpoints are POST and are authenticated with an AppID (mchNo) + apiKey pair issued from the zkMe dashboard; the zkKYB endpoint additionally uses a short-lived accessToken. This spec is a faithful transcription of the published REST documentation, not an official machine-readable spec published by zkMe.\n\nContact Support:\n Name: zkMe Integration\n Email: contact@zk.me",
+      "type": "text/plain"
+    }
+  }
+}

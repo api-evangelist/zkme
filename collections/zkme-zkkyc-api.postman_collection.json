@@ -1,0 +1,319 @@
+{
+  "item": [
+    {
+      "id": "99a645d5-77f1-4a20-bbaf-53893139af80",
+      "name": "zkKYC",
+      "description": {
+        "content": "Customer identity verification results and proofs",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2fa7d986-196a-4af0-9580-49af43816288",
+          "name": "List users who have interacted with a program",
+          "request": {
+            "name": "List users who have interacted with a program",
+            "description": {
+              "content": "Paginated list (50 users per page) of the users that have engaged with a given program, including their zkMe id, account, status and SSI wallet.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "zkseradmin",
+                "openapi",
+                "kyc",
+                "getUsersList"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiKey\": \"<string>\",\n  \"mchNo\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"programNo\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7f9c83f9-ab63-4894-8815-a5a333ede955",
+              "name": "User list page",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "zkseradmin",
+                    "openapi",
+                    "kyc",
+                    "getUsersList"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiKey\": \"<string>\",\n  \"mchNo\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"programNo\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3385,\n  \"msg\": \"string\",\n  \"timestamp\": 6943,\n  \"data\": {\n    \"total\": 7156,\n    \"totalPage\": 3994,\n    \"users\": [\n      {\n        \"zkmeId\": \"string\",\n        \"zkmeAccount\": \"string\",\n        \"status\": \"string\",\n        \"ssiWallet\": \"string\",\n        \"completedTimeUnix\": 6894,\n        \"clientUserIdentifier\": \"string\"\n      },\n      {\n        \"zkmeId\": \"string\",\n        \"zkmeAccount\": \"string\",\n        \"status\": \"string\",\n        \"ssiWallet\": \"string\",\n        \"completedTimeUnix\": 1936,\n        \"clientUserIdentifier\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b578ddef-b629-47c9-b757-623a623f567b",
+          "name": "Get a user's zkKYC result overview",
+          "request": {
+            "name": "Get a user's zkKYC result overview",
+            "description": {
+              "content": "Returns the zkKYC status and the boolean verifier values (sanction, age, citizenship, location, unique) for a given account on a given chain.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "zkseradmin",
+                "openapi",
+                "queryKycInfoByAddress"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account\": \"<string>\",\n  \"apiKey\": \"<string>\",\n  \"chainId\": \"<string>\",\n  \"mchNo\": \"<string>\",\n  \"programNo\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f272c8c1-6351-4b8b-ba90-f1f4ab3e3281",
+              "name": "zkKYC overview",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "zkseradmin",
+                    "openapi",
+                    "queryKycInfoByAddress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account\": \"<string>\",\n  \"apiKey\": \"<string>\",\n  \"chainId\": \"<string>\",\n  \"mchNo\": \"<string>\",\n  \"programNo\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"zkme_id\": \"string\",\n  \"kycStatus\": \"string\",\n  \"kycCompleteTimeUnix\": 2532,\n  \"ssiAddress\": \"string\",\n  \"verifierValues\": {\n    \"sanction\": true,\n    \"age\": true,\n    \"citizenship\": true,\n    \"location\": false,\n    \"unique\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1ef5b1e3-4f7b-45fc-b442-4280f2fa4399",
+          "name": "Get a user's proof-of-address result overview",
+          "request": {
+            "name": "Get a user's proof-of-address result overview",
+            "description": {
+              "content": "Returns the proof-of-address (countryRegion) verification result for an account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "zkseradmin",
+                "openapi",
+                "queryPoAInfoByAddress"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account\": \"<string>\",\n  \"apiKey\": \"<string>\",\n  \"mchNo\": \"<string>\",\n  \"programNo\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0c0127ad-d0a8-4f13-a2a8-9cd88156b8be",
+              "name": "Proof-of-address overview",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "zkseradmin",
+                    "openapi",
+                    "queryPoAInfoByAddress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account\": \"<string>\",\n  \"apiKey\": \"<string>\",\n  \"mchNo\": \"<string>\",\n  \"programNo\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 9189,\n  \"msg\": \"string\",\n  \"timestamp\": 5394,\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://agw.zk.me",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "fe2f06c8-0664-4280-9b24-e903a1e89fd6",
+    "name": "zkMe Protocol Auth zkKYC API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "zkMe is a decentralized identity network providing privacy-preserving compliance for Web3. The Open API lets integrators query the outcome of zero-knowledge verifications completed by their users through the zkMe widgets: zkKYC (customer identity / sanction / age / citizenship / location / uniqueness proofs), zkOBS (open-banking proof of accredited investor / proof of address), zkKYB (business + UBO verification) and KYT (on-chain transaction / wallet-address risk screening). All endpoints are POST and are authenticated with an AppID (mchNo) + apiKey pair issued from the zkMe dashboard; the zkKYB endpoint additionally uses a short-lived accessToken. This spec is a faithful transcription of the published REST documentation, not an official machine-readable spec published by zkMe.\n\nContact Support:\n Name: zkMe Integration\n Email: contact@zk.me",
+      "type": "text/plain"
+    }
+  }
+}

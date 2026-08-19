@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "zkMe Protocol Auth zkKYB API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "zkKYB",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a business entity's zkKYB verification status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://agw.zk.me/kybpopup/api/kyb/getBusinessStatus",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns the zkKYB verification stage (1 Started .. 6 Failed) for a business referenced by your externalID. Uses the short-lived accessToken obtained during SDK integration (valid 30 minutes)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

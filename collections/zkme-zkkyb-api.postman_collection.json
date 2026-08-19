@@ -1,0 +1,129 @@
+{
+  "item": [
+    {
+      "id": "e263d64c-33aa-495f-b3e5-56fb7bb53c0a",
+      "name": "zkKYB",
+      "description": {
+        "content": "Business entity and UBO verification status",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ac789647-d02c-42a8-aef9-bd208c0ea1c5",
+          "name": "Get a business entity's zkKYB verification status",
+          "request": {
+            "name": "Get a business entity's zkKYB verification status",
+            "description": {
+              "content": "Returns the zkKYB verification stage (1 Started .. 6 Failed) for a business referenced by your externalID. Uses the short-lived accessToken obtained during SDK integration (valid 30 minutes).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "kybpopup",
+                "api",
+                "kyb",
+                "getBusinessStatus"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mchNo\": \"<string>\",\n  \"accessToken\": \"<string>\",\n  \"programNo\": \"<string>\",\n  \"externalID\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cbb8db5a-b134-4727-b40c-0dfa448cc2a7",
+              "name": "Business verification status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kybpopup",
+                    "api",
+                    "kyb",
+                    "getBusinessStatus"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mchNo\": \"<string>\",\n  \"accessToken\": \"<string>\",\n  \"programNo\": \"<string>\",\n  \"externalID\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3263,\n  \"msg\": \"string\",\n  \"timestamp\": 3677,\n  \"data\": {\n    \"statusCode\": 7194,\n    \"statusDesc\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://agw.zk.me",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7b7f083a-b364-4ab6-9be8-c2ff000c9f5f",
+    "name": "zkMe Protocol Auth zkKYB API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "zkMe is a decentralized identity network providing privacy-preserving compliance for Web3. The Open API lets integrators query the outcome of zero-knowledge verifications completed by their users through the zkMe widgets: zkKYC (customer identity / sanction / age / citizenship / location / uniqueness proofs), zkOBS (open-banking proof of accredited investor / proof of address), zkKYB (business + UBO verification) and KYT (on-chain transaction / wallet-address risk screening). All endpoints are POST and are authenticated with an AppID (mchNo) + apiKey pair issued from the zkMe dashboard; the zkKYB endpoint additionally uses a short-lived accessToken. This spec is a faithful transcription of the published REST documentation, not an official machine-readable spec published by zkMe.\n\nContact Support:\n Name: zkMe Integration\n Email: contact@zk.me",
+      "type": "text/plain"
+    }
+  }
+}

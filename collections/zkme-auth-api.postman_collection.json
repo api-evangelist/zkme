@@ -1,0 +1,133 @@
+{
+  "item": [
+    {
+      "id": "4417976e-6ded-4507-bcd1-6d41b8686468",
+      "name": "Auth",
+      "description": {
+        "content": "Access-token issuance for SDK integration",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "aca0a724-814e-4017-823e-197333581a81",
+          "name": "Issue an SDK access token",
+          "request": {
+            "name": "Issue an SDK access token",
+            "description": {
+              "content": "Backend-to-backend call that returns a short-lived access token used to initialize the zkMe widget on the client. Called on the nest-api host.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "api",
+                "token",
+                "get"
+              ],
+              "host": [
+                "nest-api",
+                "zk",
+                "me"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiKey\": \"<string>\",\n  \"appId\": \"<string>\",\n  \"apiModePermission\": \"<integer>\",\n  \"lv\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "149cc6ec-4b96-42fc-a364-18d8dc3c3f0b",
+              "name": "Access token issued",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "api",
+                    "token",
+                    "get"
+                  ],
+                  "host": [
+                    "nest-api",
+                    "zk",
+                    "me"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiKey\": \"<string>\",\n  \"appId\": \"<string>\",\n  \"apiModePermission\": \"<integer>\",\n  \"lv\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 2776,\n  \"msg\": \"string\",\n  \"timestamp\": 4811,\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://agw.zk.me",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "faae4ea4-9209-454c-929f-c5d2475501a8",
+    "name": "zkMe Protocol Auth API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "zkMe is a decentralized identity network providing privacy-preserving compliance for Web3. The Open API lets integrators query the outcome of zero-knowledge verifications completed by their users through the zkMe widgets: zkKYC (customer identity / sanction / age / citizenship / location / uniqueness proofs), zkOBS (open-banking proof of accredited investor / proof of address), zkKYB (business + UBO verification) and KYT (on-chain transaction / wallet-address risk screening). All endpoints are POST and are authenticated with an AppID (mchNo) + apiKey pair issued from the zkMe dashboard; the zkKYB endpoint additionally uses a short-lived accessToken. This spec is a faithful transcription of the published REST documentation, not an official machine-readable spec published by zkMe.\n\nContact Support:\n Name: zkMe Integration\n Email: contact@zk.me",
+      "type": "text/plain"
+    }
+  }
+}
