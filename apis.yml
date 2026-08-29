@@ -14,6 +14,18 @@ description: >-
   AppID + API key pair. zkMe also publishes zkTLS verifier SDKs, DID
   registry/resolver tooling and smart contracts through its zkMeLabs GitHub org.
 url: https://raw.githubusercontent.com/api-evangelist/zkme/refs/heads/main/apis.yml
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
