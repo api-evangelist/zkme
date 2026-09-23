@@ -1,11 +1,11 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: zkMe Protocol Auth API
   version: '1.0'
   x-apievangelist-generated: '2026-07-21'
   x-apievangelist-method: generated
   x-apievangelist-source: https://docs.zk.me/hub/start/onboarding/integration/api
-  description: 'zkMe is a decentralized identity network providing privacy-preserving compliance for Web3. The Open API lets integrators query the outcome of zero-knowledge verifications completed by their users through the zkMe widgets: zkKYC (customer identity / sanction / age / citizenship / location / uniqueness proofs), zkOBS (open-banking proof of accredited investor / proof of address), zkKYB (business + UBO verification) and KYT (on-chain transaction / wallet-address risk screening). All endpoints are POST and are authenticated with an AppID (mchNo) + apiKey pair issued from the zkMe dashboard; the zkKYB endpoint additionally uses a short-lived accessToken. This spec is a faithful transcription of the published REST documentation, not an official machine-readable spec published by zkMe.'
+  description: zkMe is a decentralized identity network providing privacy-preserving compliance for Web3.
   contact:
     name: zkMe Integration
     email: contact@zk.me

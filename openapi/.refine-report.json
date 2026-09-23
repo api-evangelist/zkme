@@ -1,11 +1,7 @@
 {
   "provider": "zkme",
   "sources": [
-    "zkme-auth-api-openapi.yml",
-    "zkme-kyt-api-openapi.yml",
-    "zkme-zkkyb-api-openapi.yml",
-    "zkme-zkkyc-api-openapi.yml",
-    "zkme-zkobs-api-openapi.yml"
+    "_original/zkme-openapi.yml"
   ],
   "outputs": [
     "zkme-auth-api-openapi.yml",
@@ -17,6 +13,16 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "zkme-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "zkme-auth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zkme-kyt-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zkme-zkkyb-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zkme-zkkyc-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zkme-zkobs-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
