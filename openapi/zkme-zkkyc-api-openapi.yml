@@ -135,6 +135,19 @@ paths:
                 $ref: '#/components/schemas/Envelope'
 components:
   schemas:
+    Envelope:
+      type: object
+      description: Standard zkMe response envelope
+      properties:
+        code:
+          type: integer
+          description: Business status code; 80000000 indicates success on zkKYC/zkKYB, 200 on KYT
+        msg:
+          type: string
+        timestamp:
+          type: integer
+        data:
+          type: object
     ApiKeyAuth:
       type: object
       required:
@@ -147,6 +160,22 @@ components:
         apiKey:
           type: string
           description: API key from the zkMe dashboard
+    KycUser:
+      type: object
+      properties:
+        zkmeId:
+          type: string
+        zkmeAccount:
+          type: string
+        status:
+          type: string
+        ssiWallet:
+          type: string
+        completedTimeUnix:
+          type: integer
+        clientUserIdentifier:
+          type: string
+          description: Empty until status reaches "KYC Passed"
     KycInfo:
       type: object
       properties:
@@ -171,32 +200,3 @@ components:
               type: boolean
             unique:
               type: boolean
-    KycUser:
-      type: object
-      properties:
-        zkmeId:
-          type: string
-        zkmeAccount:
-          type: string
-        status:
-          type: string
-        ssiWallet:
-          type: string
-        completedTimeUnix:
-          type: integer
-        clientUserIdentifier:
-          type: string
-          description: Empty until status reaches "KYC Passed"
-    Envelope:
-      type: object
-      description: Standard zkMe response envelope
-      properties:
-        code:
-          type: integer
-          description: Business status code; 80000000 indicates success on zkKYC/zkKYB, 200 on KYT
-        msg:
-          type: string
-        timestamp:
-          type: integer
-        data:
-          type: object

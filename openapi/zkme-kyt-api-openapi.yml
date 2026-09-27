@@ -288,6 +288,18 @@ paths:
                     type: integer
 components:
   schemas:
+    ApiKeyAuth:
+      type: object
+      required:
+      - mchNo
+      - apiKey
+      properties:
+        mchNo:
+          type: string
+          description: AppID from the zkMe dashboard
+        apiKey:
+          type: string
+          description: API key from the zkMe dashboard
     KytAddressRequest:
       allOf:
       - $ref: '#/components/schemas/ApiKeyAuth'
@@ -302,15 +314,3 @@ components:
           address:
             type: string
             description: Wallet address to screen
-    ApiKeyAuth:
-      type: object
-      required:
-      - mchNo
-      - apiKey
-      properties:
-        mchNo:
-          type: string
-          description: AppID from the zkMe dashboard
-        apiKey:
-          type: string
-          description: API key from the zkMe dashboard

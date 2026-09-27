@@ -101,6 +101,8 @@ apis:
   humanURL: https://docs.zk.me/hub/start/onboarding/integration/api
   baseURL: https://agw.zk.me
   tags:
+  - Transaction Monitoring
+  tags_raw:
   - KYT
   properties:
   - type: OpenAPI
