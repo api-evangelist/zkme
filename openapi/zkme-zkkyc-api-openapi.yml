@@ -160,22 +160,6 @@ components:
         apiKey:
           type: string
           description: API key from the zkMe dashboard
-    KycUser:
-      type: object
-      properties:
-        zkmeId:
-          type: string
-        zkmeAccount:
-          type: string
-        status:
-          type: string
-        ssiWallet:
-          type: string
-        completedTimeUnix:
-          type: integer
-        clientUserIdentifier:
-          type: string
-          description: Empty until status reaches "KYC Passed"
     KycInfo:
       type: object
       properties:
@@ -200,3 +184,19 @@ components:
               type: boolean
             unique:
               type: boolean
+    KycUser:
+      type: object
+      properties:
+        zkmeId:
+          type: string
+        zkmeAccount:
+          type: string
+        status:
+          type: string
+        ssiWallet:
+          type: string
+        completedTimeUnix:
+          type: integer
+        clientUserIdentifier:
+          type: string
+          description: Empty until status reaches "KYC Passed"
