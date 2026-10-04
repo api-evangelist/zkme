@@ -135,31 +135,6 @@ paths:
                 $ref: '#/components/schemas/Envelope'
 components:
   schemas:
-    Envelope:
-      type: object
-      description: Standard zkMe response envelope
-      properties:
-        code:
-          type: integer
-          description: Business status code; 80000000 indicates success on zkKYC/zkKYB, 200 on KYT
-        msg:
-          type: string
-        timestamp:
-          type: integer
-        data:
-          type: object
-    ApiKeyAuth:
-      type: object
-      required:
-      - mchNo
-      - apiKey
-      properties:
-        mchNo:
-          type: string
-          description: AppID from the zkMe dashboard
-        apiKey:
-          type: string
-          description: API key from the zkMe dashboard
     KycInfo:
       type: object
       properties:
@@ -184,6 +159,31 @@ components:
               type: boolean
             unique:
               type: boolean
+    ApiKeyAuth:
+      type: object
+      required:
+      - mchNo
+      - apiKey
+      properties:
+        mchNo:
+          type: string
+          description: AppID from the zkMe dashboard
+        apiKey:
+          type: string
+          description: API key from the zkMe dashboard
+    Envelope:
+      type: object
+      description: Standard zkMe response envelope
+      properties:
+        code:
+          type: integer
+          description: Business status code; 80000000 indicates success on zkKYC/zkKYB, 200 on KYT
+        msg:
+          type: string
+        timestamp:
+          type: integer
+        data:
+          type: object
     KycUser:
       type: object
       properties:
