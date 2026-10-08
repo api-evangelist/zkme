@@ -203,6 +203,8 @@ apis:
   - type: Conformance
     url: conformance/zkme-conformance.yml
 common:
+- type: RateLimits
+  url: rate-limits/zkme-rate-limits.yml
 - url: https://blog.zk.me/rss/
   type: BlogRSS
 - type: X-MCPServerCandidate
